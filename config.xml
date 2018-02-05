@@ -1,0 +1,42 @@
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.ionicframework.taskmanager234921" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>keystone</name>
+  <description>
+        keystone
+    </description>
+  
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="SplashScreenDelay" value="3000"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <platform name="android">
+    <icon src="img/ionic.png" />
+	
+    <icon src="img/ionic.png" density="ldpi"/>
+    <icon src="img/ionic.png" density="mdpi"/>
+    <icon src="img/ionic.png" density="hdpi"/>
+    <icon src="img/ionic.png" density="xhdpi"/>
+    <icon src="img/ionic.png" density="xxhdpi"/>
+    <icon src="img/ionic.png" density="xxxhdpi"/>
+    
+	<splash src="img/splash.png" />
+	<splash src="img/splash.png" density="land-hdpi" />
+<splash src="img/splash.png" density="land-ldpi" />
+<splash src="img/splash.png" density="land-mdpi" />
+<splash src="img/splash.png" density="land-xhdpi" />
+<splash src="img/splash.png" density="port-hdpi" />
+<splash src="img/splash.png" density="port-ldpi" />
+<splash src="img/splash.png" density="port-mdpi" />
+<splash src="img/splash.png" density="port-xhdpi" />
+
+  </platform>
+</widget>
