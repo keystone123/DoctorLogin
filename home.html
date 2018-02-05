@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Main</title>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta http-equiv="Access-Control-Allow-Headers" content="Content-Type" />
+    <meta http-equiv="Access-Control-Allow-Methods" content="GET" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width" name="viewport" />
+    <meta content="Patients details" name="description" />
+    <meta content="" name="author" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='https://code.jquery.com/jquery-1.12.3.js'></script>
+    <script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+
+        .bg {
+            background-color: skyblue !important;
+        }
+
+        .loader {
+            border: 10px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 10px solid #3498db;
+            width: 80px;
+            height: 80px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .vertical-alignment-helper {
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="loader">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                    <img src="img/logo.png" style="height:50px; width:125px;" alt="logo" class="logo-default" />
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:14px;color:black;"><span class="username username-hide-on-mobile" id="userid"></span><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:onLogout();"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        </nav>
+
+    </div>
+
+
+
+    <!-- /container -->
+    <div class="container"><br><br><br><br>
+        <div class="loader">
+        </div>
+
+        <p style="margin-left:15px;font-size:20px;">Total No.Of Confirmed Patients:<span style="color:red;" id="totnoofpatients">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Amount:<span style="color:red;" id="TOTAL">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Details</button><span></span></p>
+
+        <h3 style="margin-left:15px;">Patient Lists For Doctor: <span style="text-transform: uppercase;color:skyblue;" id="docne"></span></h3>
+        <div class="col-lg-12">
+            <table class="table table-bordered table-hover" id="myTable">
+
+                <thead>
+                    <tr style="background-color: #4CAF50;" class="nr">
+                        <th width="10px">Sl.No</th>
+                        <th width="50px">uhid</th>
+                        <th width="450px">Patient Name</th>
+                        <th width="50px">Age</th>
+                        <th>Gender</th>
+                        <th>Amount</th>
+                        <th>Modified Amount</th>
+                        <th align="center"></th>
+                    </tr>
+                </thead>
+            </table>
+
+
+            <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center" style="display: table-cell;  vertical-align: middle;">
+                        <div class="modal-content" style="width:30%;height:inherit; margin: 0 auto;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                                <h4 class="modal-title" id="myModalLabel">Are You Sure?To confirm amount <span style="text-transform: uppercase;color:red;" id="confidamt"></span><br>For Patient <span style="text-transform: uppercase;color:red;" id="patname"></span></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal2" id="conf" data-dismiss="modal">Confirm</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="modal2" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center" style="display: table-cell;  vertical-align: middle;">
+                        <div class="modal-content" style="width:30%;height:inherit; margin: 0 auto;">
+                            <div class="modal-header">
+
+                                <h4 class="modal-title" id="myModalLabel"><span id="myMessage"></span></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="suces" class="btn btn-success" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal1" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirmed Patients</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table id="mTable" class="table table-hover text-centered" width="100%">
+
+                                <thead>
+                                    <tr style="background-color: #4CAF50;" class="mt">
+                                        <th width="10px">Sl.No</th>
+                                        <th width="1500px">uhid</th>
+                                        <th>Patient Name</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(window).load(function() {
+            $(".loader").fadeOut("slow");
+        })
+    </script>
+
+    <script src="js/login.js" type="text/javascript"></script>
+    <script src="js/home.js" type="text/javascript"></script>
+</body>
+
+</html>
