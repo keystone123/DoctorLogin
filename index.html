@@ -9,19 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+<style>
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
 </head>
 
 <div class="container">
     <img src="img/a.gif" id="gif" style="display: block; margin: 0 auto; width: 100px; visibility: hidden;">
     <form class="login-form " method="post">
         <div class="login">
-            <h1>Login</h1><br>
+            <h1>Login</h1><br><div class="centered"><img src="img\2.gif" id="img" style="display:none" width="50px" ></div>
             <div class="form-group">
                 <span id="spnerror" style="color:red" ;></span>
                 <input type="text" class="form-control" placeholder='username' id="username" name="username" /></br>
                 <input type="text" class="form-control" placeholder='Password' id="password" name="password" /></br>
                 <button type="submit" class="btn btn-primary btn-block btn-large" id="submit">Login</button>
+				
             </div>
         </div>
         <div id="back"></div>

@@ -16,7 +16,7 @@ $('#submit').click(function(e) {
     {
         document.getElementById('spnerror').innerHTML = "Enter usename and password";
     } else {
-
+               $('#img').hide();
 
         $.ajax({
 
@@ -25,7 +25,7 @@ $('#submit').click(function(e) {
             datatype: "json",
             async: false,
             success: function(result) {
-
+ $('#img').show();
                 var obj = jQuery.parseJSON(result);
                 sessionStorage.setItem('doccode', "" + obj.doccode + "");
                 sessionStorage.setItem('docname', "" + obj.docname + "");
@@ -36,6 +36,7 @@ $('#submit').click(function(e) {
 
                 } else {
                     document.getElementById('spnerror').innerHTML = "usename or password is wrong";
+					$('#img').hide();
                 }
 
             }
